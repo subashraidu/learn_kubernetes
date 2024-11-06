@@ -1,0 +1,111 @@
+# Kubernetes Command Reference Guide
+
+## Cluster Management Commands
+```bash
+# Get cluster information
+kubectl cluster-info                # Display cluster info
+kubectl version                    # Show client and server version
+kubectl config view               # Show kubeconfig settings
+kubectl config get-contexts       # List all contexts
+kubectl config use-context <name> # Switch to different context
+
+# Node Operations
+kubectl get nodes                 # List all nodes in cluster
+kubectl describe node <node-name> # Show detailed node information
+kubectl top node                 # Show node resource usage
+```
+
+## Pod Operations
+```bash
+# Basic Pod Commands
+kubectl get pods                  # List all pods in current namespace
+kubectl get pods -A               # List pods across all namespaces
+kubectl get pods -o wide         # List pods with more details
+kubectl describe pod <pod-name>   # Show detailed pod information
+kubectl logs <pod-name>          # View pod logs
+kubectl exec -it <pod-name> -- /bin/bash  # Execute shell in pod
+
+# Pod Management
+kubectl run <name> --image=<image> # Create and run a pod from an image
+kubectl delete pod <pod-name>      # Delete a pod
+kubectl port-forward <pod-name> <local-port>:<pod-port> # Forward port
+```
+
+## Deployment Operations
+```bash
+# Deployment Management
+kubectl get deployments          # List all deployments
+kubectl create deployment <name> --image=<image> # Create deployment
+kubectl scale deployment <name> --replicas=<count> # Scale deployment
+kubectl rollout status deployment/<name> # Check rollout status
+kubectl rollout history deployment/<name> # View rollout history
+kubectl rollout undo deployment/<name> # Rollback deployment
+
+# Update Deployments
+kubectl set image deployment/<name> <container>=<image> # Update container image
+kubectl edit deployment/<name>   # Edit deployment configuration
+```
+
+## Service Operations
+```bash
+# Service Management
+kubectl get services            # List all services
+kubectl expose deployment <name> --port=<port> --type=<type> # Create service
+kubectl describe service <name> # Show service details
+```
+
+## Namespace Operations
+```bash
+kubectl get namespaces          # List all namespaces
+kubectl create namespace <name> # Create namespace
+kubectl delete namespace <name> # Delete namespace
+kubectl config set-context --current --namespace=<name> # Switch namespace
+```
+
+## Configuration and Storage
+```bash
+# ConfigMaps and Secrets
+kubectl get configmaps         # List configmaps
+kubectl get secrets           # List secrets
+kubectl create configmap <name> --from-file=<path> # Create configmap from file
+kubectl create secret generic <name> --from-literal=key=value # Create secret
+
+# Persistent Volumes
+kubectl get pv                # List persistent volumes
+kubectl get pvc              # List persistent volume claims
+```
+
+## Debugging and Troubleshooting
+```bash
+# Debugging Commands
+kubectl describe <resource> <name> # Show detailed resource information
+kubectl logs <pod-name> -c <container> # View container logs
+kubectl exec -it <pod-name> -c <container> -- <command> # Execute command in container
+kubectl top pod                   # Show pod resource usage
+kubectl get events               # Show cluster events
+```
+
+## Application Management
+```bash
+# Apply and Delete Resources
+kubectl apply -f <file.yaml>    # Create/update resource from file
+kubectl delete -f <file.yaml>   # Delete resource from file
+kubectl replace -f <file.yaml>  # Replace resource from file
+
+# Resource Information
+kubectl get all                 # Show all resources
+kubectl api-resources          # List all supported resources
+kubectl explain <resource>     # Get documentation for resource
+```
+
+## Advanced Commands
+```bash
+# Labels and Annotations
+kubectl label <resource> <name> key=value # Add/update label
+kubectl annotate <resource> <name> key=value # Add/update annotation
+
+# Resource Management
+kubectl cordon <node>          # Mark node as unschedulable
+kubectl drain <node>           # Drain node for maintenance
+kubectl taint nodes <node> key=value:effect # Add taint to node
+```
